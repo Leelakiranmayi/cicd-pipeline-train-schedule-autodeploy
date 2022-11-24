@@ -1,5 +1,7 @@
 pipeline {
-    agent kubernetes
+    agent {
+        label 'kubernetes'
+    }
     environment {
         //be sure to replace "bhavukm" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "gupta1299/train-schedule"
