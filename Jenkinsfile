@@ -39,6 +39,17 @@ pipeline {
                 sh 'sudo docker push gupta1299/train-schedule:latest'
             }
         }
+	stage('Deployement') {
+            agent {
+                label 'kubernetes'
+            }
+            environment {
+                CANARY_REPLICAS = 1
+            }
+            steps {
+                sh 'sudo kubectl create -f train-schedule-kube-canary.yml'
+                )
+        }   
         stage('CanaryDeploy') {
             agent {
                 label 'kubernetes'
