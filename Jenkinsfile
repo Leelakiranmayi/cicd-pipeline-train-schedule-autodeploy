@@ -20,11 +20,8 @@ pipeline {
         label 'java-slave'
     }
             steps {
-                script {
-                    app = docker.build(DOCKER_IMAGE_NAME)
-                    app.inside {
-                        sh 'echo Hello, World!'
-                    }
+                {
+                    sh 'sudo docker build -t gupta1299/train-schedule .'
                 }
             }
         }
