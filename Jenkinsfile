@@ -24,6 +24,8 @@ pipeline {
             steps {
 
                 sh 'sudo docker build -t gupta1299/train-schedule .'
+		sh 'docker image list'
+		sh 'docker tag gupta1299/train-schedule gupta1299/train-schedule:v1.0'
 
             }
         }
