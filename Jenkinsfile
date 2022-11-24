@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             agent {
-        label 'java-slave'
+        label 'kubernetes'
     }
             steps {
                 script {
@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             agent {
-        label 'java-slave'
+        label 'kubernetes'
     }
             steps {
                 script {
