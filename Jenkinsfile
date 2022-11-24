@@ -1,3 +1,4 @@
+/* Hello World in Groovy */
 pipeline {
     agent none
     environment {
@@ -6,9 +7,9 @@ pipeline {
     }
     stages {
         stage('Build') {
-        agent {
-        label 'java-slave'
-    }
+            agent {
+                label 'java-slave'
+            }
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
@@ -17,21 +18,21 @@ pipeline {
         }
         stage('Build Docker Image') {
             agent {
-        label 'java-slave'
-    }
+                label 'java-slave'
+            }
             steps {
-                {
-                    sh 'sudo docker build -t gupta1299/train-schedule .'
-                }
+
+                sh 'sudo docker build -t gupta1299/train-schedule .'
+
             }
         }
         stage('Push Docker Image') {
             agent {
-        label 'java-slave'
-    }
+                label 'java-slave'
+            }
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'eb4ca418-7340-41f3-a528-d09ef90cf6c0', url: 'https://hub.docker.com/'){
+                    withDockerRegistry(credentialsId: 'eb4ca418-7340-41f3-a528-d09ef90cf6c0', url: 'https://hub.docker.com/') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
@@ -40,9 +41,9 @@ pipeline {
         }
         stage('CanaryDeploy') {
             agent {
-        label 'kubernetes'
-    }
-            environment { 
+                label 'kubernetes'
+            }
+            environment {
                 CANARY_REPLICAS = 1
             }
             steps {
@@ -55,9 +56,9 @@ pipeline {
         }
         stage('DeployToProduction') {
             agent {
-        label 'kubernetes'
-    }
-            environment { 
+                label 'kubernetes'
+            }
+            environment {
                 CANARY_REPLICAS = 0
             }
             steps {
