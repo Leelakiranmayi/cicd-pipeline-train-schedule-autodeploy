@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent kubernetes
     environment {
         //be sure to replace "bhavukm" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "gupta1299/train-schedule"
@@ -31,7 +31,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dckr_pat_HQpgovSaiQ2CUhMEK5XCY0vXSn4') {
+                    withDockerRegistry(credentialsId: 'eb4ca418-7340-41f3-a528-d09ef90cf6c0', url: 'https://hub.docker.com/'){
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
