@@ -43,49 +43,9 @@ pipeline {
             agent {
                 label 'kubernetes'
             }
-            environment {
-                CANARY_REPLICAS = 1
-            }
             steps {
                 sh 'sudo kubectl create -f train-schedule-kube-canary.yml'
 	    }
         }   
-        stage('CanaryDeploy') {
-            agent {
-                label 'kubernetes'
-            }
-            environment {
-                CANARY_REPLICAS = 1
-            }
-            steps {
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube-canary.yml',
-                    enableConfigSubstitution: true
-                )
-            }
-        }
-        stage('DeployToProduction') {
-            agent {
-                label 'kubernetes'
-            }
-            environment {
-                CANARY_REPLICAS = 0
-            }
-            steps {
-                input 'Deploy to Production?'
-                milestone(1)
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube-canary.yml',
-                    enableConfigSubstitution: true
-                )
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube.yml',
-                    enableConfigSubstitution: true
-                )
-            }
-        }
     }
 }
