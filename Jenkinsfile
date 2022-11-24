@@ -35,7 +35,7 @@ pipeline {
             }
             steps {
 		sh 'sudo chmod 666 /var/run/docker.sock'
-                sh 'sudo docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW --password-stdin docker.io'
+                sh 'sudo docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW docker.io'
 		sh 'sudo docker pull gupta1299/firstapp'
                 sh 'sudo docker push gupta1299/train-schedule:latest'
             }
