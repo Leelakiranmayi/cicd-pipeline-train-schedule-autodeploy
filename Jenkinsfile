@@ -32,8 +32,8 @@ pipeline {
                 label 'java-slave'
             }
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push gupta1299/train-schedule'
+                sh 'sudo echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'sudo docker push gupta1299/train-schedule'
             }
         }
         stage('CanaryDeploy') {
