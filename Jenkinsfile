@@ -19,9 +19,6 @@ pipeline {
             agent {
         label 'java-slave'
     }
-            when {
-                branch 'master'
-            }
             steps {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
@@ -35,9 +32,6 @@ pipeline {
             agent {
         label 'java-slave'
     }
-            when {
-                branch 'master'
-            }
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'eb4ca418-7340-41f3-a528-d09ef90cf6c0', url: 'https://hub.docker.com/'){
@@ -51,9 +45,6 @@ pipeline {
             agent {
         label 'kubernetes'
     }
-            when {
-                branch 'master'
-            }
             environment { 
                 CANARY_REPLICAS = 1
             }
@@ -69,9 +60,6 @@ pipeline {
             agent {
         label 'kubernetes'
     }
-            when {
-                branch 'master'
-            }
             environment { 
                 CANARY_REPLICAS = 0
             }
