@@ -22,7 +22,7 @@ pipeline {
             }
             steps {
 
-                sh 'docker build -t gupta1299/train-schedule .'
+                sh 'sudo docker build -t gupta1299/train-schedule .'
 
             }
         }
