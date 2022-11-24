@@ -25,7 +25,7 @@ pipeline {
 
                 sh 'sudo docker build -t train-schedule .'
 		sh 'docker image list'
-		sh 'docker tag v1 gupta1299/train-schedule'
+		sh 'docker tag train-schedule gupta1299/train-schedule'
 
             }
         }
