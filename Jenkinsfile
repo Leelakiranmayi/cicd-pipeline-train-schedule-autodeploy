@@ -32,6 +32,7 @@ pipeline {
                 label 'java-slave'
             }
             steps {
+		sh 'sudo chmod 666 /var/run/docker.sock'
                 sh 'sudo echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh 'sudo docker push gupta1299/train-schedule'
             }
