@@ -48,7 +48,7 @@ pipeline {
             }
             steps {
                 sh 'sudo kubectl create -f train-schedule-kube-canary.yml'
-                )
+	    }
         }   
         stage('CanaryDeploy') {
             agent {
