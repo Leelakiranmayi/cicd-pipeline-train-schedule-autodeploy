@@ -44,7 +44,7 @@ pipeline {
                 label 'kubernetes'
             }
             steps {
-                sh 'sudo kubectl create -f train-schedule-kube-canary.yml'
+                sh 'sudo kubectl apply -f train-schedule-kube-canary.yml'
 	    }
         }   
     }
