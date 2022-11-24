@@ -3,7 +3,8 @@ pipeline {
     agent none
     environment {
         //be sure to replace "bhavukm" with your own Docker Hub username
-        DOCKER_IMAGE_NAME = "gupta1299/train-schedule"
+        DOCKER_IMAGE_NAME = "gupta1299/train-schedule"  
+		DOCKERHUB_CREDENTIALS=credentials('guota1299')
     }
     stages {
         stage('Build') {
@@ -31,12 +32,8 @@ pipeline {
                 label 'java-slave'
             }
             steps {
-                script {
-                    withDockerRegistry(credentialsId: 'eb4ca418-7340-41f3-a528-d09ef90cf6c0', url: 'https://hub.docker.com/') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    }
-                }
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'docker push gupta1299/train-schedule'
             }
         }
         stage('CanaryDeploy') {
