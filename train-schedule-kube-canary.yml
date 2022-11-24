@@ -10,7 +10,7 @@ spec:
   ports:
   - protocol: TCP
     port: 8080
-    nodePort: 31299
+    nodePort: 31298
 
 ---
 
@@ -37,13 +37,3 @@ spec:
         image: gupta1299/train-schedule:latest
         ports:
         - containerPort: 8080
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 15
-          timeoutSeconds: 1
-          periodSeconds: 10
-        resources:
-          requests:
-            cpu: 200m
