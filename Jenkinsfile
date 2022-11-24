@@ -1,13 +1,14 @@
 pipeline {
-    agent {
-        label 'kubernetes'
-    }
+    agent none
     environment {
         //be sure to replace "bhavukm" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "gupta1299/train-schedule"
     }
     stages {
         stage('Build') {
+        agent {
+        label 'java-slave'
+    }
             steps {
                 echo 'Running build automation'
                 sh './gradlew build --no-daemon'
@@ -15,6 +16,9 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
+            agent {
+        label 'java-slave'
+    }
             when {
                 branch 'master'
             }
@@ -28,6 +32,9 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
+            agent {
+        label 'java-slave'
+    }
             when {
                 branch 'master'
             }
@@ -41,6 +48,9 @@ pipeline {
             }
         }
         stage('CanaryDeploy') {
+            agent {
+        label 'kubernetes'
+    }
             when {
                 branch 'master'
             }
@@ -56,6 +66,9 @@ pipeline {
             }
         }
         stage('DeployToProduction') {
+            agent {
+        label 'kubernetes'
+    }
             when {
                 branch 'master'
             }
